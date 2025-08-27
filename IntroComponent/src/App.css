@@ -1,0 +1,91 @@
+main{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  max-width: 1000px;
+}
+
+.left-part{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  padding: 32px;
+}
+
+h1{
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.right-part{
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+
+.right-part > button{
+  
+  background-color: hsl(248, 32%, 49%);
+  border: none;
+  padding: 12px;
+  height: 48px;
+  border-radius: 8px;
+  font-weight: 300;
+  width: 100%;
+  max-width: 500px;
+  
+  span{
+    font-weight: 700;
+  }
+}
+
+.right-part > form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px;
+  gap: 16px;
+  background-color: white;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+
+  button{
+    height: 48px;
+    background-color: hsl(154, 59%, 51%);
+    border: none;
+    align-self: stretch;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  p{
+    color: hsl(249, 10%, 75%);
+    font-size: 12px;
+
+    a{
+      color: hsl(0, 100%, 74%);
+    }
+  }
+}
+
+input{
+  min-height: 48px;
+  align-self: stretch;
+  border-radius: 8px;
+  border: 1px solid hsl(246, 25%, 77%);
+  padding: 4px 16px;
+  color: black;
+}
+
+input::placeholder{
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+}
