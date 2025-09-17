@@ -1,9 +1,52 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
+  const [form, setForm] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState({});
+
+  function handleSubmit(formData){
+    console.log("logged");
+    const email = formData.get('email');
+    const firstname = formData.get('firstname');
+    const lastname = formData.get('lastname');
+    const password = formData.get('password');
+    const data = {email, firstname, lastname, password};
+
+    const validationErrors = validate(data);
+    console.log(validationErrors);
+
+  if (Object.keys(validationErrors).length > 0) {
+    setErrors(validationErrors);
+  } else {
+    console.log("Form submitted", data);
+    setErrors({});
+    // hier State aktualisieren (falls du die Daten brauchst)
+    setForm(data);
+  }
+  }
+
+  function validate(values) {
+    let newErrors = {};
+    if (!values.firstname) newErrors.firstname = "First name is required";
+    if (!values.lastname) newErrors.lastname = "Last name is required";
+    if (!values.email.includes("@"))
+      newErrors.email = "Email must be valid";
+    if (values.password.length < 6)
+      newErrors.password = "Password must be at least 6 characters";
+    return newErrors;
+  }
+
+  function handleChange(event){
+    setErrors({...errors, [event.target.name]: ""});
+  }
 
 
   return (
@@ -18,10 +61,12 @@ function App() {
             <span>Try it free 7 days </span> 
             than $20/mo. thereafter
           </button>
-          <form>
-            <input type='text' id='firstname' name='firstname' placeholder='First Name' /> 
-            <input type='text' id='lastname' name='lastname' placeholder='Last Name'/>
-            <input type='email' id='email' name='email' placeholder='Email Adress' />
+          <form action={handleSubmit} novalidate="novalidate">
+            <input type='text' id='firstname' name='firstname' placeholder='First Name' onChange={handleChange}/>
+            {errors.firstname && <span style={{color: "black"}}>{errors.firstname}</span>} 
+            <input type='text' id='lastname' name='lastname' placeholder='Last Name' onChange={handleChange}/>
+            {errors.lastname && <span style={{color: "black"}}>{errors.lastname}</span>} 
+            <input type='email' id='email' name='email' placeholder='Email Adress'/>
             <input type='password' id='password' name='password' placeholder='Password' />
             <button>CLAIM YOUR FREE TRIAL</button>
             <p>By clicking the Button you are agreeing our <a href=''>Terms and Services</a></p>
